@@ -1,0 +1,71 @@
+---
+    import Container from "../Containers/Container.astro"
+    import SideBar from "../Header/SideBar.astro"
+    import ThemeMode from "../Header/ThemeMode.astro"
+    import ThemeModeSmall from "../Header/ThemeModeSmall.astro"
+
+    import Logo from "../Logo/Logo.astro"
+
+---
+
+<Container>
+    <header class="w-full flex 
+    justify-between items-center 
+    py-4 ">
+        <div class="flex gap-2">
+        
+            <Logo/>
+        </div>
+
+        <nav class="hidden sm:block">
+            <ul class="flex gap-4 items-center text-blackout dark:text-white" id="content-nav">
+                <li>
+                    <a href="#home">Home</a>
+                </li>
+                <li>
+                    <a href="#services">Services</a>
+                </li>
+                <li>
+                    <a href="#portfolio">Portfolio</a>
+                </li>
+                <li>
+                    <a href="#about">About</a>
+                </li>
+                <li class="px-3 py-[0.4rem] text-white bg-primary rounded-md">
+                    <a href="#contact">Contact</a>
+                </li>
+                <ThemeMode  />
+
+
+            </ul>
+        </nav>
+        <div class="flex gap-3 sm:hidden" id="content-mobile">
+            <img
+                src={"/icons/Menu.svg"}
+                alt="menu"
+                height={27}
+                width={27}
+                class="block cursor-pointer"
+                id="btnMenu"
+            />
+            <ThemeMode  />
+
+        </div>
+
+        </header> 
+</Container>
+
+
+<SideBar/>
+
+<script>
+    import {isOpenSideBar} from '../../../src/store.ts'
+
+    
+
+    function openSideBar(){
+        isOpenSideBar.set(true)
+    }
+
+    document.getElementById("btnMenu")?.addEventListener("click", openSideBar)
+</script>

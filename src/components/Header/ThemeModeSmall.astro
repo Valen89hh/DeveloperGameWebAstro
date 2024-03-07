@@ -1,0 +1,27 @@
+<div class="w-7 p-1 border-solid border-slate-700 border-2 rounded-full " id="btnMode2">
+    <img src="/icons/light-mode.svg" alt="img" id="img2" />
+</div> 
+
+<script>
+    import {isModeNight} from '../../../src/store'
+
+
+
+    const btnMode = document.getElementById("btnMode2")
+    btnMode?.addEventListener("click", ()=>{
+        isModeNight.set(!isModeNight.get())
+        document.documentElement.classList.toggle("dark")
+        
+    })
+
+    isModeNight.listen(mode =>{
+        console.log("Entrando" + mode)
+        if(mode){
+            document.getElementById("img2")?.setAttribute("src", "/icons/night-mode.svg")
+        }else{
+            document.getElementById("img2")?.setAttribute("src", "/icons/light-mode.svg")
+        }
+    })
+
+
+</script>

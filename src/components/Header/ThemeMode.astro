@@ -1,0 +1,31 @@
+<div class="w-7 p-1 border-solid border-slate-700 border-2 rounded-full btnMode" >
+    <img src="/icons/light-mode.svg" alt="img" class="modeImg" />
+</div> 
+
+<script>
+    import {isModeNight} from '../../../src/store'
+
+    const buttons = document.querySelectorAll("div.btnMode")
+
+    buttons?.forEach(btn => {
+        btn.addEventListener("click", ()=>{
+            isModeNight.set(!isModeNight.get())
+            document.documentElement.classList.toggle("dark")
+        })
+    });
+
+    const imgs = document.querySelectorAll("img.modeImg")
+    imgs?.forEach(img => {
+        isModeNight.listen(mode =>{
+        console.log("Entrando" + mode)
+        if(mode){
+            img.setAttribute("src", "/icons/night-mode.svg")
+        }else{
+            img.setAttribute("src", "/icons/light-mode.svg")
+        }
+    })
+    });
+
+
+
+</script>

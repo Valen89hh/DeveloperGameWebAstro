@@ -1,0 +1,124 @@
+---
+import Logo from "../Logo/Logo.astro"
+---
+
+<div id="content-side-bar" class={`bg-[#02020277] fixed 
+    inset-0 top-0 w-screen
+     h-screen z-10
+     `}>
+        <div id="side-bar" class={`w-[80%] sm:w-[400px] 
+        h-full bg-white dark:bg-slate-900 absolute
+         top-0 right-0
+         `}>
+        <nav class="p-4">
+            <Logo/>
+            <ul class="flex mt-3 flex-col gap-4 font-bold text-primary-dark">
+                <li>
+                    <a href="#home" >Home</a>
+                </li>
+                <li>
+                    <a href="#services" >Services</a>
+                </li>
+                <li>
+                    <a href="#portfolio">Portfolio</a>
+                </li>
+                <li>
+                    <a href="#about" >About</a>
+                </li>
+                <a href='#contact' class="px-3 py-[0.4rem] text-white bg-primary rounded-md" >
+                    Contact
+                </a>
+            </ul>
+        </nav>
+        </div>
+    </div>
+
+<script>
+    import {isOpenSideBar} from '../../../src/store'
+
+    isOpenSideBar.subscribe( open => {
+        const sideBar = document.getElementById("side-bar")
+        const contentSideBar = document.getElementById("content-side-bar")
+        
+        if(open){
+            contentSideBar?.classList.replace("hidden-side", "visible-side")
+            sideBar?.classList.replace("side-close", "side-open")
+            
+        }else{
+            sideBar?.classList.remove("side-open")
+            contentSideBar?.classList.remove("visible-side")
+            sideBar?.classList.add("side-close")
+            contentSideBar?.classList.add("hidden-side")
+        }
+    })
+
+    
+    document.getElementById("content-side-bar")?.addEventListener("click", e=>{
+        if(e.target != document.getElementById("side-bar")){
+            isOpenSideBar.set(false)
+        }
+    })
+</script>
+
+
+<style>
+    .red{
+        background-color: red;
+    }
+
+    .side-open{
+    animation: open 0.3s ease-in-out forwards;
+}
+
+.side-close{
+    animation: close 0.3s ease-in-out forwards;
+}
+
+.hidden-side{
+    animation: invisible 0.3s ease-in-out forwards;
+}
+
+.visible-side{
+    animation: visto 0.3s ease-in-out forwards;
+}
+
+@keyframes open {
+    from{
+        transform: translateX(100%);
+    }
+    to{
+        transform: translateX(0);
+    }
+}
+
+@keyframes close {
+    from{
+        transform: translateX(0);
+    }
+    to{
+        transform: translateX(100%);
+    }
+}
+
+@keyframes visto {
+    from{
+        display: none;
+        opacity: 0;
+    }
+    to{
+        display: fixed;
+        opacity: 1;
+    }
+}
+
+@keyframes invisible {
+    from{
+        display: fixed;
+        opacity: 1;
+    }
+    to{
+        display: none;
+        opacity: 0;
+    }
+}
+</style>
